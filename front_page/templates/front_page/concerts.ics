@@ -1,0 +1,39 @@
+{% load ics %}{% autoescape off %}BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:Peter of the Norse wrote this though Django
+METHOD:PUBLISH
+X-WR-CALNAME:Radio 1190 Concerts
+CALSCALE:GREGORIAN
+X-WR-TIMEZONE:America/Denver
+BEGIN:VTIMEZONE
+TZID:America/Denver
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0700
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+DTSTART:20070311T020000
+TZNAME:MDT
+TZOFFSETTO:-0600
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0600
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+DTSTART:20071104T020000
+TZNAME:MST
+TZOFFSETTO:-0700
+END:STANDARD
+END:VTIMEZONE
+{% for event in list %}BEGIN:VEVENT
+UID:Radio1190-concert-{{event.id}}
+ORGANIZER:http://www.Radio1190.org/
+{% if event.time %}DTSTART;TZID=America/Denver:{{event.date|date:"Ymd"}}T{{event.time|time:"Hi"}}00
+DURATION:PT2H
+{% else %}DTSTART;VALUE=DATE:{{event.date|date:"Ymd"}}
+DURATION:P1D
+{% endif %}DTSTAMP:{{event.date|date:"Ymd"}}T000000Z
+LOCATION:{{event.venue|escape}}
+SUMMARY:{{ event.performer_set.all|join:"—"|escape }}
+DESCRIPTION:{% if event.we_present %}Radio 1190 presents!\n{% endif %}{% if event.minimum_age %}{{event.minimum_age|escape}}\n{% endif %}{{event.info|escape}}
+{% if event.site %}URL;VALUE=URI:{{event.site|escape}}
+{% else %}{% if event.venue.homepage %}URL;VALUE=URI:{{event.venue.homepage|escape}}
+{% endif %}{% endif %}END:VEVENT
+{% endfor %}END:VCALENDAR{% endautoescape %}

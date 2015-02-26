@@ -1,0 +1,9 @@
+{% extends "dj_pro/base.html" %}
+
+{% block title %}Every genre{% endblock %}
+
+{% block body %}
+<div class="three-columns">
+{% for g in genres %}<p><a href="{% url dj_pro.views.genre g.slug %}">{{g.name}}</a></p>{% endfor %}
+</div>
+{% endblock %}

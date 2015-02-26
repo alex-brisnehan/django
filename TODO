@@ -1,0 +1,27 @@
+- add artist/album on air
+/ ambient overnights in playlist
+  - TuneTracker can add songs
+  - forbidden char: |
+√ show per song rotation editing form
+- sort by other fields
+- location should sort by number first
+pass? dj pick pop-up shouldn't force an immediate change
+- include "add artist" as part of auto-complete
+- recent history in the admin
+- date added to album admin
+
+! make everything pretty
+  √ on air playlist
+  √ on air other
+  √ login pages
+  √ main site
+
+- Add unittests
+- Add unicode font to CD print slips
+
+√ genres
+- album/artist artwork
+- speciality shows use djpro
+- front page news items
+- front page CDotM
+- different style sheets per user

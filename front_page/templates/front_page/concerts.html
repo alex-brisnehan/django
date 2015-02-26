@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Concert listing{% endblock %}
+
+{% block content %}
+<h2>Concert Calendar</h2>
+<p>This is also available in <a href="{% url front_page.views.concert_ical %}" rel="alternate" type="text/calendar">ICalendar format</a></p>
+<style>
+.even {
+  background-color: #CCCCCC;
+}
+.odd {
+  background-color: #EEE;
+}
+td {
+  padding: 5px;
+}
+a {
+  color: #000;
+}
+</style>
+<p><img src="/atom.gif">Radio 1190 Presents! Listen for your chance to win tickets.</p>
+<table style="border-collapse:collapse">
+{% for event in list %}
+<tr class="{% cycle 'even' 'odd' as row %}">
+    <td rowspan="2" style="font-size:1.4em; font-weight:bold; width:12ex;">{{event.date|date:"l<\\b\\r>N jS"|safe}}<br>{{event.time|time:"g:i a"}}</td>
+    <td>{% for p in event.performer_set.all %}{{p}}{% if not forloop.last %} — {% endif %}{% endfor %}</td>
+    <td>{% if event.venue.homepage %}<a href="{{event.venue.homepage}}">{{event.venue}}</a>{% else %}{{event.venue}}{% endif %}
+    {% if event.venue.location %}<br>{{event.venue.location}}{% endif %}</td>
+    <td rowspan="2">{% if event.we_present %}<img src='/atom.gif'>{% endif %}</td>
+</tr>
+<tr class="{{row}}">
+    <td>{{event.info}}</td>
+    <td>{{event.minimum_age}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

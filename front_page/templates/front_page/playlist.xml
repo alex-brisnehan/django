@@ -1,0 +1,1 @@
+<playlist>{% for song in list %}<line><time>{{song.played_at|date:"c"}}</time><artist>{{song.song.artist}}</artist><song>{{song.song.song}}</song><album>{{song.song.album}}</album></line>{% endfor %}</playlist>

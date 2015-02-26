@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Playlist for {{today|date:"n/j/Y"}}{% endblock %}
+
+{% block content %}
+<h2>Playlist for {{today|date:"l, jS \o\f F Y"}}</h2>
+{% if errors %}
+<ul>
+{% for e in errors %}
+<li>{{e}}</li>
+{% endfor %}
+</ul>
+{% endif %}
+<form method="GET">Get playlist for <input type="text" name="day" value="{{today|date:"m/d/Y"}}" size="12"></form>
+<p>{% if yesterday %}<a href="?day={{yesterday|date:"m/d/Y"}}" rel="prev">the previous day</a> {% endif %}{% if tomorrow %}<a href="?day={{tomorrow|date:"m/d/Y"}}" rel="next">the next day</a>{% endif %}</p>
+<table border="1">
+<thead>
+    <tr>
+        <td style="width:11ex"></td>
+        <td><b>Artist</b></td>
+        <td><b>Song</b></td>
+        <td><b>Album</b></td>
+    </tr>
+</thead>
+<tbody>
+{% for song in list %}
+    <tr>
+        <td>{{song.played_at|date:"g:i a"}}</td>
+        <td>{{song.song.artist}}</td>
+        <td>{{song.song.song}}</td>
+        <td>{{song.song.album}}</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
+

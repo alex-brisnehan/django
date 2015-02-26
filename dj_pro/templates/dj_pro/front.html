@@ -1,0 +1,9 @@
+{% extends "dj_pro/base.html" %}
+
+{% block body %}
+<p>
+<a href="{% url dj_pro.views.artist_new %}">New Artist</a><br>
+<a href="{% url dj_pro.views.album_new %}">New Album</a><br>
+<a href="{% url dj_pro.views.concert_list %}">Concert Listing</a>
+</p>
+{% endblock %}

@@ -1,0 +1,1 @@
+<current>{% if song %}<artist>{{artist}}</artist><song>{{song}}</song>{% endif %}</current>

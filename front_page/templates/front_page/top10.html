@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Top {{list.count}} for the week ending {{this_week|date:"F jS, Y"}}{% endblock %}
+
+{% block content %}
+{% if errors %}
+<ul>
+{% for e in errors %}
+<li>{{e}}</li>
+{% endfor %}
+</ul>
+{% endif %}
+<p><form method="GET">Get top album list for <input name="week" value="{{this_week|date:"n/j/Y"}}" size="12"></form> 
+{% if prev_week %}<a href="?week={{prev_week|date:"n/j/Y"}}" rel="prev">Previous week</a>{% endif %} {% if next_week %}<a href="?week={{next_week|date:"n/j/Y"}}" rel="next">Next week</a>{% endif %} </p>
+
+<table>
+<tbody>
+{% for album in list %}
+    <tr>
+        <td>{{album.rank}}</td>
+        <td><b>{{album.album.artist|default:"<i>Various Artists</i>"}}</b> — <b>{{album.album}}</b> ({{album.album.label}})
+        <br>
+        {{album.album.review}}</td>
+    </tr>{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
